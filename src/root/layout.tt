@@ -10,11 +10,7 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-
-    <!-- With a frontend build step, the numerous asset links from style.tt -->
-    <!-- would be replaced by single, minified, and hashed bundle files. -->
-    <link rel="stylesheet" href="[% c.uri_for('/static/dist/app.bundle.a1b2c3d4.css') %]" />
-    <script defer src="[% c.uri_for('/static/dist/app.bundle.a1b2c3d4.js') %]"></script>
+    [% INCLUDE style.tt %]
 
     [% IF c.config.enable_google_login %]
       <meta name="google-signin-client_id" content="[% c.config.google_client_id %]">
