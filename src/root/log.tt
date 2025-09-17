@@ -34,12 +34,6 @@
       type: 'GET',
       success: function (log_data) {
 
-        [% IF tail %]
-        /* The server may give us a full log (e.g. if the log is in
-           S3). So extract the last lines. */
-        log_data = log_data.split("\n").slice(-[% HTML.escape(tail) %]).join("\n");
-        [% END %]
-
         $("#contents").text(log_data);
       },
       error: function () {
