@@ -697,6 +697,19 @@ create index IndexJobsetInputAltsOnJobset on JobsetInputAlts(project, jobset);
 create index IndexProjectsOnEnabled on Projects(enabled);
 create index IndexBuildOutputsPath on BuildOutputs using hash(path);
 
+-- For finding builds in a jobset.
+create index IndexBuildsOnJobsetIdAndJob on Builds(jobset_id, job);
+
+-- For finding all steps for a build.
+create index IndexBuildStepsOnBuild on BuildSteps(build);
+
+-- For finding all outputs for a build step.
+create index IndexBuildStepOutputsOnBuildAndStep on BuildStepOutputs(build, stepnr);
+
+-- Index foreign keys to improve join performance
+create index IndexBuildsJobsetIdFk ON Builds(jobset_id);
+create index IndexBuildstepsBuildFk ON BuildSteps(build);
+create index IndexBuildstepoutputsBuildstepFk ON BuildStepOutputs(buildstep);
 
 --  For hydra-update-gc-roots.
 create index IndexBuildsOnKeep on Builds(keep) where keep = 1;
@@ -724,16 +737,3 @@ exception when others then
     raise warning 'The pg_trgm index on builds.drvpath has been skipped (slower complex queries on builds.drvpath)';
 end$$;
 
--- For finding builds in a jobset.
-create index IndexBuildsOnJobsetIdAndJob on Builds(jobset_id, job);
-
--- For finding all steps for a build.
-create index IndexBuildStepsOnBuild on BuildSteps(build);
-
--- For finding all outputs for a build step.
-create index IndexBuildStepOutputsOnBuildAndStep on BuildStepOutputs(build, stepnr);
-
--- Index foreign keys to improve join performance
-create index BuildsJobsetIdFk ON Builds(jobset_id);
-create index BuildstepsBuildFk ON BuildSteps(build);
-create index BuildstepoutputsBuildstepFk ON BuildStepOutputs(buildstep);
