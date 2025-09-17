@@ -475,6 +475,12 @@ sub getDependencyGraph {
 sub build_deps : Chained('buildChain') PathPart('build-deps') {
     my ($self, $c) = @_;
     my $build = $c->stash->{build};
+
+    # Return the cached version if the build is finished and the page is cached.
+    if ($build->finished) {
+        $c->cache_action(expires => '1 hour') if $c->can('cache_action');
+    }
+
     my $drvPath = $build->drvpath;
 
     error($c, "Derivation no longer available.") unless $MACHINE_LOCAL_STORE->isValidPath($drvPath);

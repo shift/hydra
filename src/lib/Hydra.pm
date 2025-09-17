@@ -65,6 +65,13 @@ __PACKAGE__->config(
         storage => Hydra::Model::DB::getHydraPath . "/www/session_data",
         unlink_on_exit => 0
     },
+    'Plugin::Cache' => {
+        backend => {
+            class => 'Cache::FastMmap',
+            cache_root => Hydra::Model::DB::getHydraPath . '/cache',
+            expires => 3600,
+        }
+    },
     'Plugin::Captcha' => {
         session_name => 'hydra-captcha',
         new => {

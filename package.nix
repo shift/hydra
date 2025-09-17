@@ -73,6 +73,8 @@ let
         CatalystPluginAuthorizationRoles
         CatalystPluginCaptcha
         CatalystPluginPrometheusTiny
+        CatalystPluginCache
+        CacheFastMmap
         CatalystPluginSessionStateCookie
         CatalystPluginSessionStoreFastMmap
         CatalystPluginStackTrace
@@ -254,7 +256,7 @@ stdenv.mkDerivation (finalAttrs: {
   mesonCheckFlags = [ "--verbose" ];
 
   preCheck = ''
-    export LOGNAME=''${LOGNAME:-foo}
+    export LOGNAME='''${LOGNAME:-foo}
     # set $HOME for bzr so it can create its trace file
     export HOME=$(mktemp -d)
   '';
