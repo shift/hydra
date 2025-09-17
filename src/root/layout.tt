@@ -10,7 +10,8 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    [% INCLUDE style.tt %]
+    <link rel="stylesheet" href="[% c.uri_for('/static/dist/app.bundle.css') %]" />
+    <script defer src="[% c.uri_for('/static/dist/app.bundle.js') %]"></script>
 
     [% IF c.config.enable_google_login %]
       <meta name="google-signin-client_id" content="[% c.config.google_client_id %]">

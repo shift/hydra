@@ -11,3 +11,7 @@
 result
 result-*
 outputs
+
+# Frontend build artifacts
+/node_modules
+/src/root/static/dist

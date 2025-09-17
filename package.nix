@@ -54,6 +54,8 @@
 , rpm
 , dpkg
 , cdrkit
+, nodejs
+, esbuild
 }:
 
 let
@@ -167,6 +169,8 @@ stdenv.mkDerivation (finalAttrs: {
     perlDeps
     perl
     unzip
+    nodejs
+    esbuild
   ];
 
   buildInputs = [
@@ -234,6 +238,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     patchShebangs .
+  '';
+
+  preBuild = ''
+    npm install
+    npm run build
   '';
 
   shellHook = ''
